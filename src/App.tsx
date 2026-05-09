@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router"
 import OTPPage from "./pages/OTPPage"
+import Letter1 from "./pages/Letter1"
 
 
 export function App() {
@@ -7,7 +8,7 @@ export function App() {
    <>
    <Routes>
   <Route index element={<OTPPage />} />
-  {/* <Route path="about" element={<About />} /> */}
+  <Route path="letter" element={<Letter1 />} />
 
   {/* <Route element={<AuthLayout />}>
     <Route path="login" element={<Login />} />

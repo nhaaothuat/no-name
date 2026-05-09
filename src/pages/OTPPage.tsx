@@ -12,8 +12,10 @@ import {
   CardContent,
   CardTitle,
   CardDescription,
+  CardFooter,
 } from "@/components/ui/card";
 import { Heart } from "lucide-react";
+import { Button } from "@/components/ui/button";
 const hearts = Array.from({ length: 25 }, (_, i) => ({
   id: i,
   left: `${Math.random() * 100}%`,
@@ -24,11 +26,11 @@ const hearts = Array.from({ length: 25 }, (_, i) => ({
 }));
 
 const OTPPage = () => {
- 
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#fff5f5] overflow-hidden relative">
-     
-         {hearts.map((heart) => (
+
+      {hearts.map((heart) => (
         <motion.div
           key={heart.id}
           className="absolute -bottom-15 text-pink-300 pointer-events-none"
@@ -59,14 +61,14 @@ const OTPPage = () => {
         </motion.div>
       ))}
 
-      
+
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="z-10 w-full px-4"
       >
-        <Card className="mx-auto  w-full max-w-sm border-none shadow-[0_20px_50px_rgba(255,182,193,0.3)] bg-white/70 backdrop-blur-xl ring-1 ring-pink-100">
+        <Card className="mx-auto  w-full max-w-lg border-none shadow-[0_20px_50px_rgba(255,182,193,0.3)] bg-white/70 backdrop-blur-xl ring-1 ring-pink-100">
           <CardHeader className="text-center space-y-2 pb-6">
             <motion.div
               className="mx-auto bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mb-2 shadow-inner"
@@ -76,16 +78,16 @@ const OTPPage = () => {
               <Heart className="text-pink-500 fill-pink-500 w-8 h-8" />
             </motion.div>
 
-            <CardTitle className="text-2xl font-bold bg-linear-to-r from-pink-500 to-rose-400 bg-clip-text text-transparent">
-              Mật mã yêu thương
+            <CardTitle className="text-2xl font-bold bg-linear-to-r from-pink-500 to-rose-400 bg-clip-text text-transparent " >
+             Enter Your Password
             </CardTitle>
 
             <CardDescription className="text-pink-400/80 font-medium">
-              Nhập 6 con số là ngày chúng mình bắt đầu
+             
             </CardDescription>
           </CardHeader>
 
-          <CardContent className="flex flex-col items-center pt-6 pb-12 px-6">
+          <CardContent className="flex flex-col items-center pt-6 pb-12 px-6 space-y-2">
             <div className="px-3 py-4   bg-white/50 rounded-2xl shadow-inner border border-pink-50">
               <InputOTP maxLength={6}>
                 <div className="flex gap-2 items-center justify-center">
@@ -130,6 +132,9 @@ const OTPPage = () => {
             </div>
 
           </CardContent>
+          <CardFooter>
+            <Button>Hello</Button>
+          </CardFooter>
         </Card>
       </motion.div>
     </div>
