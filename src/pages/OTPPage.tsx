@@ -35,11 +35,18 @@ const OTPPage = () => {
   const [otp, setOtp] = useState("")
   const [error, setError] = useState("")
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+
     if (otp === PASSWORD) {
       navigate("/letter", { replace: true })
     } else {
       setError("Haizzz, có vậy mà cũng không đoán ra!!! Lêu lêu")
+              setTimeout(() => {
+            setOtp("")
+            // setError("")
+        }, 1000)
+
     }
   }
 

@@ -4,6 +4,8 @@ import { useState } from "react"
 import { slides } from "@/data/slide"
 import { ArrowBigLeft, ArrowBigRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import GallerySlide2 from '@/components/component/GallerySlide2'
+import QA6 from '@/components/component/QA6'
 
 const variants = {
     enter: (direction: number) => ({
@@ -24,7 +26,7 @@ const variants = {
 
 
 const Letter1 = () => {
-   const [[index, direction], setPage] =
+    const [[index, direction], setPage] =
         useState([0, 0])
 
     const paginate = (dir: number) => {
@@ -35,134 +37,111 @@ const Letter1 = () => {
         setPage([next, dir])
     }
 
+    const [showControls, setShowControls] = useState(true)
+
+    const handleAccept = () => {
+        paginate(1)
+        setShowControls(true)
+    }
+
     const CurrentSlide = slides[index].Component
-  return (
-    <>
-      <section className="relative h-screen overflow-hidden bg-black">
-            <AnimatePresence mode="wait" custom={direction}>
-                <motion.div
-                    key={index}
-                    custom={direction}
-                    variants={variants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    transition={{
-                        duration: 1,
-                        ease: [0.22, 1, 0.36, 1],
-                    }}
-                    className="absolute inset-0"
-                >
-                    <CurrentSlide />
-                </motion.div>
-            </AnimatePresence>
-
-            {/* <div
-                className="
-                    absolute
-                    bottom-10
-                    left-10
-                    z-50
-                    flex
-                    gap-4
-                "
-            >
-                <Button
-                    onClick={() => paginate(-1)}
-                    className="
-                        px-6
-                        py-3
-                        bg-white
-                        text-black
-                    "
-                >
-                   <ArrowBigLeft />
-                </Button>
-
-                <Button
-                    onClick={() => paginate(1)}
-                    className="
-                        px-6
-                        py-3
-                        bg-white
-                        text-black
-                    "
-                >
-                   <ArrowBigRight />
-                </Button>
-            </div> */}
-
-              <div
-                className="
-                    absolute
-                    bottom-10
-                    left-10
-                    z-50
-                    flex
-                    gap-4
-                "
-            >
-                 {index === 0 ? (
-        <Button
-            onClick={() => paginate(1)}
-            className="
-                rounded-full
-                border
-                border-white/20
-                bg-white/10
-                px-8
-                py-6
-                text-white
-                backdrop-blur-md
-                hover:bg-white/20
-            "
-        >
-            Begin ✨
-        </Button>
-    ) : (
+    return (
         <>
-            <Button
-                onClick={() => paginate(-1)}
-                size="icon"
-                className="
-                    h-12
-                    w-12
-                    rounded-full
-                    border
-                    border-white/20
-                    bg-white/10
-                    text-white
-                    backdrop-blur-md
-                    hover:bg-white/20
-                "
-            >
-                <ArrowBigLeft />
-            </Button>
+            <section className="relative h-screen overflow-hidden bg-black">
+                <AnimatePresence mode="wait" custom={direction}>
+                    <motion.div
+                        key={index}
+                        custom={direction}
+                        variants={variants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        transition={{
+                            duration: 1,
+                            ease: [0.22, 1, 0.36, 1],
+                        }}
+                        className="absolute inset-0"
+                    >
+                        <CurrentSlide onAccept={handleAccept} />
+                    </motion.div>
+                </AnimatePresence>
 
-            <Button
-                onClick={() => paginate(1)}
-                size="icon"
-                className="
-                    h-12
-                    w-12
-                    rounded-full
-                    border
-                    border-white/20
-                    bg-white/10
-                    text-white
-                    backdrop-blur-md
-                    hover:bg-white/20
+                {/* <div
+                    className="
+                    absolute
+                    bottom-10
+                    left-10
+                    z-50
+                    flex
+                    gap-4
                 "
-            >
-                <ArrowBigRight />
-            </Button>
+                >
+                    <Button
+                        onClick={() => paginate(-1)}
+                        className="
+                        px-6
+                        py-3
+                        bg-white
+                        text-black
+                    "
+                    >
+                        <ArrowBigLeft />
+                    </Button>
+
+                    <Button
+                        onClick={() => paginate(1)}
+                        className="
+                        px-6
+                        py-3
+                        bg-white
+                        text-black
+                    "
+                    >
+                        <ArrowBigRight />
+                    </Button>
+                </div> */}
+
+                {showControls && slides[index].Component !== GallerySlide2 && slides[index].Component !== QA6 && (
+                    <div
+                        className="
+            absolute
+            bottom-10
+            left-10
+            z-50
+            flex
+            gap-4
+        "
+                    >
+                        <Button
+                            onClick={() => paginate(-1)}
+                            className="
+                px-6
+                py-3
+                bg-white
+                text-black
+            "
+                        >
+                            <ArrowBigLeft />
+                        </Button>
+
+                        <Button
+                            onClick={() => paginate(1)}
+                            className="
+                px-6
+                py-3
+                bg-white
+                text-black
+            "
+                        >
+                            <ArrowBigRight />
+                        </Button>
+                    </div>
+                )}
+
+            </section>
+            <TrailVelocity />
         </>
-    )}
-            </div>
-        </section>
-   <TrailVelocity />
-   </>
-  )
+    )
 }
 
 export default Letter1
