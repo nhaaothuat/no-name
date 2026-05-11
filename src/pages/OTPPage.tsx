@@ -27,23 +27,21 @@ const hearts = Array.from({ length: 25 }, (_, i) => ({
   opacity: 0.15 + Math.random() * 0.35,
 }))
 
-const PASSWORD = "170708";
+const PASSWORD = "170708"
 
 const OTPPage = () => {
+  const navigate = useNavigate()
 
-  const navigate = useNavigate();
-
-  const [otp, setOtp] = useState("");
-  const [error, setError] = useState("");
+  const [otp, setOtp] = useState("")
+  const [error, setError] = useState("")
 
   const handleSubmit = () => {
     if (otp === PASSWORD) {
-      navigate("/letter"); // route bên trong
+      navigate("/letter", { replace: true })
     } else {
-      setError("Haizzz, có vậy mà cũng không đoán ra!!! Lêu lêu");
+      setError("Haizzz, có vậy mà cũng không đoán ra!!! Lêu lêu")
     }
-  };
-
+  }
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#fff5f5]">
@@ -97,88 +95,94 @@ const OTPPage = () => {
 
             <CardDescription className="font-medium text-pink-400/80"></CardDescription>
           </CardHeader>
+          <form onSubmit={handleSubmit}>
+            <CardContent className="flex flex-col items-center space-y-2 px-6 pt-6 pb-12">
+              <div className="rounded-2xl border border-pink-50 bg-white/50 px-3 py-4 shadow-inner">
+                <InputOTP
+                  maxLength={6}
+                  value={otp}
+                  onChange={(value) => {
+                    setOtp(value)
+                    setError("")
+                  }}
+                >
+                  <div className="flex items-center justify-center gap-2">
+                    <InputOTPGroup className="gap-2">
+                      <InputOTPSlot
+                        index={0}
+                        className="h-14 w-12 rounded-xl border-pink-100 bg-white text-lg shadow-sm focus:ring-pink-300"
+                      />
+                      <InputOTPSlot
+                        index={1}
+                        className="h-14 w-12 rounded-xl border-pink-100 bg-white text-lg shadow-sm focus:ring-pink-300"
+                      />
+                    </InputOTPGroup>
 
-          <CardContent className="flex flex-col items-center space-y-2 px-6 pt-6 pb-12">
-            <div className="rounded-2xl border border-pink-50 bg-white/50 px-3 py-4 shadow-inner">
-              <InputOTP maxLength={6}  value={otp}
-                onChange={(value) => {
-                  setOtp(value);
-                  setError("");
-                }}>
-                <div className="flex items-center justify-center gap-2">
-                  <InputOTPGroup className="gap-2">
-                    <InputOTPSlot
-                      index={0}
-                      className="h-14 w-12 rounded-xl border-pink-100 bg-white text-lg shadow-sm focus:ring-pink-300"
-                    />
-                    <InputOTPSlot
-                      index={1}
-                      className="h-14 w-12 rounded-xl border-pink-100 bg-white text-lg shadow-sm focus:ring-pink-300"
-                    />
-                  </InputOTPGroup>
+                    <InputOTPSeparator className="text-pink-200" />
 
-                  <InputOTPSeparator className="text-pink-200" />
+                    <InputOTPGroup className="gap-2">
+                      <InputOTPSlot
+                        index={2}
+                        className="h-14 w-12 rounded-xl border-pink-100 bg-white text-lg shadow-sm focus:ring-pink-300"
+                      />
+                      <InputOTPSlot
+                        index={3}
+                        className="h-14 w-12 rounded-xl border-pink-100 bg-white text-lg shadow-sm focus:ring-pink-300"
+                      />
+                    </InputOTPGroup>
 
-                  <InputOTPGroup className="gap-2">
-                    <InputOTPSlot
-                      index={2}
-                      className="h-14 w-12 rounded-xl border-pink-100 bg-white text-lg shadow-sm focus:ring-pink-300"
-                    />
-                    <InputOTPSlot
-                      index={3}
-                      className="h-14 w-12 rounded-xl border-pink-100 bg-white text-lg shadow-sm focus:ring-pink-300"
-                    />
-                  </InputOTPGroup>
+                    <InputOTPSeparator className="text-pink-200" />
 
-                  <InputOTPSeparator className="text-pink-200" />
-
-                  <InputOTPGroup className="gap-2">
-                    <InputOTPSlot
-                      index={4}
-                      className="h-14 w-12 rounded-xl border-pink-100 bg-white text-lg shadow-sm focus:ring-pink-300"
-                    />
-                    <InputOTPSlot
-                      index={5}
-                      className="h-14 w-12 rounded-xl border-pink-100 bg-white text-lg shadow-sm focus:ring-pink-300"
-                    />
-                  </InputOTPGroup>
-                </div>
-              </InputOTP>
-            </div>
+                    <InputOTPGroup className="gap-2">
+                      <InputOTPSlot
+                        index={4}
+                        className="h-14 w-12 rounded-xl border-pink-100 bg-white text-lg shadow-sm focus:ring-pink-300"
+                      />
+                      <InputOTPSlot
+                        index={5}
+                        className="h-14 w-12 rounded-xl border-pink-100 bg-white text-lg shadow-sm focus:ring-pink-300"
+                      />
+                    </InputOTPGroup>
+                  </div>
+                </InputOTP>
+              </div>
               {error && (
-              <motion.p
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-sm text-rose-500 font-medium"
+                <motion.p
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-sm font-medium text-rose-500"
+                >
+                  {error}
+                </motion.p>
+              )}
+            </CardContent>
+            <CardFooter className="flex justify-center px-6 pb-4">
+              <motion.div
+                className="w-auto"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                {error}
-              </motion.p>
-            )}
-          </CardContent>
-          <CardFooter className="flex justify-center px-6 pb-4">
-            <motion.div
-              className="w-auto"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Button  onClick={handleSubmit} className="relative h-14 overflow-hidden rounded-full border-none bg-linear-to-r from-rose-400 to-pink-500 px-10 text-lg font-bold text-white shadow-[0_10px_25px_rgba(244,114,182,0.4)] transition-all duration-300 hover:shadow-[0_15px_35px_rgba(244,114,182,0.5)]">
-                
+                <Button className="relative h-14 overflow-hidden rounded-full border-none bg-linear-to-r from-rose-400 to-pink-500 px-10 text-lg font-bold text-white shadow-[0_10px_25px_rgba(244,114,182,0.4)] transition-all duration-300 hover:shadow-[0_15px_35px_rgba(244,114,182,0.5)]">
                   <motion.span
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ repeat: Infinity, duration: 1 }}
                   >
                     💖
                   </motion.span>
-               
 
-                <motion.div
-                  className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent"
-                  animate={{ x: ["-200%", "200%"] }}
-                  transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
-                />
-              </Button>
-            </motion.div>
-          </CardFooter>
+                  <motion.div
+                    className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent"
+                    animate={{ x: ["-200%", "200%"] }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 3,
+                      ease: "linear",
+                    }}
+                  />
+                </Button>
+              </motion.div>
+            </CardFooter>
+          </form>
         </Card>
       </motion.div>
     </div>

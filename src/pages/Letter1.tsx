@@ -57,7 +57,7 @@ const Letter1 = () => {
                 </motion.div>
             </AnimatePresence>
 
-            <div
+            {/* <div
                 className="
                     absolute
                     bottom-10
@@ -90,6 +90,74 @@ const Letter1 = () => {
                 >
                    <ArrowBigRight />
                 </Button>
+            </div> */}
+
+              <div
+                className="
+                    absolute
+                    bottom-10
+                    left-10
+                    z-50
+                    flex
+                    gap-4
+                "
+            >
+                 {index === 0 ? (
+        <Button
+            onClick={() => paginate(1)}
+            className="
+                rounded-full
+                border
+                border-white/20
+                bg-white/10
+                px-8
+                py-6
+                text-white
+                backdrop-blur-md
+                hover:bg-white/20
+            "
+        >
+            Begin ✨
+        </Button>
+    ) : (
+        <>
+            <Button
+                onClick={() => paginate(-1)}
+                size="icon"
+                className="
+                    h-12
+                    w-12
+                    rounded-full
+                    border
+                    border-white/20
+                    bg-white/10
+                    text-white
+                    backdrop-blur-md
+                    hover:bg-white/20
+                "
+            >
+                <ArrowBigLeft />
+            </Button>
+
+            <Button
+                onClick={() => paginate(1)}
+                size="icon"
+                className="
+                    h-12
+                    w-12
+                    rounded-full
+                    border
+                    border-white/20
+                    bg-white/10
+                    text-white
+                    backdrop-blur-md
+                    hover:bg-white/20
+                "
+            >
+                <ArrowBigRight />
+            </Button>
+        </>
+    )}
             </div>
         </section>
    <TrailVelocity />
