@@ -1,11 +1,10 @@
-
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "@/components/ui/input-otp";
+} from "@/components/ui/input-otp"
 import {
   Card,
   CardHeader,
@@ -13,27 +12,45 @@ import {
   CardTitle,
   CardDescription,
   CardFooter,
-} from "@/components/ui/card";
-import { Heart } from "lucide-react";
-import { Button } from "@/components/ui/button";
+} from "@/components/ui/card"
+import { Heart } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { useNavigate } from "react-router"
+import { useState } from "react"
+
 const hearts = Array.from({ length: 25 }, (_, i) => ({
   id: i,
   left: `${Math.random() * 100}%`,
   duration: 8 + Math.random() * 12,
-  delay: Math.random() * 10,
+  delay: Math.random() * 2,
   size: 14 + Math.random() * 28,
   opacity: 0.15 + Math.random() * 0.35,
-}));
+}))
+
+const PASSWORD = "170708";
 
 const OTPPage = () => {
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-[#fff5f5] overflow-hidden relative">
+  const navigate = useNavigate();
 
+  const [otp, setOtp] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = () => {
+    if (otp === PASSWORD) {
+      navigate("/letter"); // route bên trong
+    } else {
+      setError("Haizzz, có vậy mà cũng không đoán ra!!! Lêu lêu");
+    }
+  };
+
+
+  return (
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#fff5f5]">
       {hearts.map((heart) => (
         <motion.div
           key={heart.id}
-          className="absolute -bottom-15 text-pink-300 pointer-events-none"
+          className="pointer-events-none absolute -bottom-15 text-pink-300"
           initial={{
             y: 0,
             x: 0,
@@ -54,13 +71,9 @@ const OTPPage = () => {
             left: heart.left,
           }}
         >
-          <Heart
-            fill="currentColor"
-            size={heart.size}
-          />
+          <Heart fill="currentColor" size={heart.size} />
         </motion.div>
       ))}
-
 
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
@@ -68,37 +81,39 @@ const OTPPage = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="z-10 w-full px-4"
       >
-        <Card className="mx-auto  w-full max-w-lg border-none shadow-[0_20px_50px_rgba(255,182,193,0.3)] bg-white/70 backdrop-blur-xl ring-1 ring-pink-100">
-          <CardHeader className="text-center space-y-2 pb-6">
+        <Card className="mx-auto w-full max-w-lg border-none bg-white/70 shadow-[0_20px_50px_rgba(255,182,193,0.3)] ring-1 ring-pink-100 backdrop-blur-xl">
+          <CardHeader className="space-y-2 pb-6 text-center">
             <motion.div
-              className="mx-auto bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mb-2 shadow-inner"
+              className="mx-auto mb-2 flex h-16 w-16 items-center justify-center rounded-full bg-pink-100 shadow-inner"
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ repeat: Infinity, duration: 2 }}
             >
-              <Heart className="text-pink-500 fill-pink-500 w-8 h-8" />
+              <Heart className="h-8 w-8 fill-pink-500 text-pink-500" />
             </motion.div>
 
-            <CardTitle className="text-2xl font-bold bg-linear-to-r from-pink-500 to-rose-400 bg-clip-text text-transparent " >
-             Enter Your Password
+            <CardTitle className="bg-linear-to-r from-pink-500 to-rose-400 bg-clip-text text-2xl font-bold text-transparent">
+              Enter Your Password
             </CardTitle>
 
-            <CardDescription className="text-pink-400/80 font-medium">
-             
-            </CardDescription>
+            <CardDescription className="font-medium text-pink-400/80"></CardDescription>
           </CardHeader>
 
-          <CardContent className="flex flex-col items-center pt-6 pb-12 px-6 space-y-2">
-            <div className="px-3 py-4   bg-white/50 rounded-2xl shadow-inner border border-pink-50">
-              <InputOTP maxLength={6}>
-                <div className="flex gap-2 items-center justify-center">
+          <CardContent className="flex flex-col items-center space-y-2 px-6 pt-6 pb-12">
+            <div className="rounded-2xl border border-pink-50 bg-white/50 px-3 py-4 shadow-inner">
+              <InputOTP maxLength={6}  value={otp}
+                onChange={(value) => {
+                  setOtp(value);
+                  setError("");
+                }}>
+                <div className="flex items-center justify-center gap-2">
                   <InputOTPGroup className="gap-2">
                     <InputOTPSlot
                       index={0}
-                      className="rounded-xl border-pink-100 focus:ring-pink-300 w-12 h-14 text-lg bg-white shadow-sm"
+                      className="h-14 w-12 rounded-xl border-pink-100 bg-white text-lg shadow-sm focus:ring-pink-300"
                     />
                     <InputOTPSlot
                       index={1}
-                      className="rounded-xl border-pink-100 focus:ring-pink-300 w-12 h-14 text-lg bg-white shadow-sm"
+                      className="h-14 w-12 rounded-xl border-pink-100 bg-white text-lg shadow-sm focus:ring-pink-300"
                     />
                   </InputOTPGroup>
 
@@ -107,11 +122,11 @@ const OTPPage = () => {
                   <InputOTPGroup className="gap-2">
                     <InputOTPSlot
                       index={2}
-                      className="rounded-xl border-pink-100 focus:ring-pink-300 w-12 h-14 text-lg bg-white shadow-sm"
+                      className="h-14 w-12 rounded-xl border-pink-100 bg-white text-lg shadow-sm focus:ring-pink-300"
                     />
                     <InputOTPSlot
                       index={3}
-                      className="rounded-xl border-pink-100 focus:ring-pink-300 w-12 h-14 text-lg bg-white shadow-sm"
+                      className="h-14 w-12 rounded-xl border-pink-100 bg-white text-lg shadow-sm focus:ring-pink-300"
                     />
                   </InputOTPGroup>
 
@@ -120,25 +135,54 @@ const OTPPage = () => {
                   <InputOTPGroup className="gap-2">
                     <InputOTPSlot
                       index={4}
-                      className="rounded-xl border-pink-100 focus:ring-pink-300 w-12 h-14 text-lg bg-white shadow-sm"
+                      className="h-14 w-12 rounded-xl border-pink-100 bg-white text-lg shadow-sm focus:ring-pink-300"
                     />
                     <InputOTPSlot
                       index={5}
-                      className="rounded-xl border-pink-100 focus:ring-pink-300 w-12 h-14 text-lg bg-white shadow-sm"
+                      className="h-14 w-12 rounded-xl border-pink-100 bg-white text-lg shadow-sm focus:ring-pink-300"
                     />
                   </InputOTPGroup>
                 </div>
               </InputOTP>
             </div>
-
+              {error && (
+              <motion.p
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-sm text-rose-500 font-medium"
+              >
+                {error}
+              </motion.p>
+            )}
           </CardContent>
-          <CardFooter>
-            <Button>Hello</Button>
+          <CardFooter className="flex justify-center px-6 pb-4">
+            <motion.div
+              className="w-auto"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button  onClick={handleSubmit} className="relative h-14 overflow-hidden rounded-full border-none bg-linear-to-r from-rose-400 to-pink-500 px-10 text-lg font-bold text-white shadow-[0_10px_25px_rgba(244,114,182,0.4)] transition-all duration-300 hover:shadow-[0_15px_35px_rgba(244,114,182,0.5)]">
+                
+                  <motion.span
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ repeat: Infinity, duration: 1 }}
+                  >
+                    💖
+                  </motion.span>
+               
+
+                <motion.div
+                  className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent"
+                  animate={{ x: ["-200%", "200%"] }}
+                  transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                />
+              </Button>
+            </motion.div>
           </CardFooter>
         </Card>
       </motion.div>
     </div>
-  );
-};
+  )
+}
 
-export default OTPPage;
+export default OTPPage

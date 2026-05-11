@@ -5,7 +5,7 @@ import GallerySlide2 from "@/components/component/GallerySlide2"
 export const slides = [
     {
         id: 1,
-        Component: HeroSlide,
+        Component: MinimalSlide,
     },
     {
         id: 2,
@@ -13,7 +13,7 @@ export const slides = [
     },
     {
         id: 3,
-        Component: MinimalSlide,
+        Component: HeroSlide,
     },
     {
         id: 4,
